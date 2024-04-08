@@ -405,6 +405,7 @@ def distribute_tensor(
     device_mesh: Optional[DeviceMesh] = None,
     placements: Optional[Sequence[Placement]] = None,
 ) -> "DTensor":
+    # CTC: distribute tensor by replicate/shard/interleaved_shard/partial.
     """
     Distribute a global `torch.Tensor` to the `device_mesh` according to the `placements`
     specified. The rank of `device_mesh` and `placements` must be the same.

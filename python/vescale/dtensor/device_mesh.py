@@ -40,6 +40,7 @@ if TYPE_CHECKING:
 
 
 class _MeshEnv:
+    # CTC: creates submesh, 1D or nD. maintain _dim_group_infos and child_to_parent_mapping.
     def __init__(self) -> None:
         self.mesh_stack: List[DeviceMesh] = []
         self.child_to_parent_mapping: Dict[DeviceMesh, DeviceMesh] = {}
@@ -340,6 +341,7 @@ class DeviceMesh:
             dim_group_infos.append((_get_group_tag(pg), get_process_group_ranks(pg)))
         else:
             # create sub pgs base on the mesh argument specified
+            # CTC: similar to nanotron processgroup setup.
             for dim in range(self.mesh.ndim):
                 # swap the current dim to the last dim
                 # then reshape to flatten out other dims

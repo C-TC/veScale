@@ -281,6 +281,7 @@ class Partial(Placement):
         return "P"
 
 
+# CTC: This is something new, besides shard, replicate and partial. But powerful enough?
 class InterleavedShard(Shard):
     """
     The major difference between this placement and Shard is that the global
@@ -461,6 +462,7 @@ class DTensorSpec:
 
     @property
     def dim_map(self) -> List[int]:
+        # CTC: maps tensor dimensions to mesh dimensions
         """
         dim_map is a property we derive from `placements` of
         the distributed tensor. It simply return a list of ints
@@ -513,6 +515,7 @@ class DTensorSpec:
         sums: List[int],
         tensor_meta: Optional[TensorMeta] = None,
     ) -> "DTensorSpec":
+        # CTC: dim map and sums can reconstruct the placements on device mesh.
         """
         Construct a DTensorSpec from dim_map list and pending sum.
 

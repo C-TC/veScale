@@ -344,6 +344,7 @@ class DModule:
         """
         import vescale.model.patch as model_patch
 
+        # CTC: identify rpl, vpe, etc. and apply patch on forward(), adding redistribution. No CPL?
         for specific_model_patch in model_patch.get_all_model_patch():
             specific_model_patch(module)
 
@@ -430,6 +431,7 @@ class DModule:
     """ ============ Bound Methods Below ============ """
 
     @staticmethod
+    # CTC: add/replace nn.module methods with DModule methods, especially load_state_dict.
     def initialize_methods(module: nn.Module) -> None:
         # assign new method
         assert not hasattr(module, "get_fwd_plan"), f"{module.__class__} already has a method called `get_fwd_plan`!"

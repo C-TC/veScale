@@ -93,6 +93,7 @@ def _allreduce_by_bucket(
         else:
             dtype_to_buckets[dtype].append(dtype_to_tensors[dtype])
 
+# CTC: no overlap for DP grad sync?
     for dtype in dtype_to_buckets:
         buckets = dtype_to_buckets[dtype]
         for gs in buckets:

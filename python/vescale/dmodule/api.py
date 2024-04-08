@@ -29,6 +29,7 @@ from vescale.dmodule.placements_interface import PlacementsInterface
 __all__ = ["parallelize_module", "is_dmodule", "PlacementsInterface"]
 
 
+# CTC: model sharding in DModule.
 def parallelize_module(
     module: nn.Module,
     device_mesh: Optional[DeviceMesh] = None,

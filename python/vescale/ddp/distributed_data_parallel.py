@@ -14,6 +14,7 @@ from vescale.dtensor.device_mesh import DeviceMesh
 from vescale.ddp.grad_buffer import GradBuffer
 
 
+# CTC: similar to Megatron-LM.
 class DistributedDataParallel(torch.nn.Module):
     """
     DDP wrapper which stores grads in contiguous buffers. Also has option of overlapping

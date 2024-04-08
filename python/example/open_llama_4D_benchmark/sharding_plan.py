@@ -60,4 +60,5 @@ model_param_sharding_plan = {
     **{rf"layers.\d+.{k}": v for k, v in _decoder_param_sharding_plan.items()},
 }
 
+# CTC: sharding plan for weights and inputs
 sharding_plan = {"parameter": model_param_sharding_plan, "forward": model_fwd_resharding_plan}

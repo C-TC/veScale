@@ -216,6 +216,7 @@ def _reduce_scatter_to_shard_with_pad(
     return output
 
 
+# CTC: core of redistribution. Enumerates all possible cases of redistribution. 
 @switch_partial_mode
 def redistribute_local_tensor(
     local_tensor: torch.Tensor,
@@ -245,6 +246,7 @@ def redistribute_local_tensor(
     target_placements = target_spec.placements
     sorted_placements = list(enumerate(zip(current_placements, target_placements)))
     sorted_placements = _decompose_reshard(sorted_placements)
+    # CTC: purpose of sorting placements? for performance or correctness? Seems for correctness considering _decompose_reshard.
     sorted_placements.sort(key=_replicate_then_shard)
 
     for i, (current, target) in sorted_placements:
