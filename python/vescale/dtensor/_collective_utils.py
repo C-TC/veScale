@@ -287,6 +287,7 @@ def get_bandwidth_factor(mesh: DeviceMesh) -> List[float]:
 
 
 def allgather_cost(num_bytes: float, mesh: DeviceMesh, mesh_dim: int) -> float:
+    # CTC: latency cost default to 1?
     num_devices_on_mesh_dim = mesh.size(mesh_dim)
     bandwidth_factor = get_bandwidth_factor(mesh)[mesh_dim]
     # constant latency factor + bandwidth cost

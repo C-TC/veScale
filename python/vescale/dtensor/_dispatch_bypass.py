@@ -94,6 +94,7 @@ class BypassOpShardingProp:
     """
 
     def __init__(self):
+        # CTC: custom rules for bypassing sharding propagation
         self.op_handlers = {
             aten._to_copy.default: BypassOpShardingProp.copy_handler,
             aten._local_scalar_dense.default: BypassOpShardingProp.scalar_handler,

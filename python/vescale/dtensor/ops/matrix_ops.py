@@ -44,6 +44,7 @@ aten = torch.ops.aten
 
 @register_prop_rule(aten.t.default)
 def transpose_rule(op_schema: OpSchema) -> OutputSharding:
+    # CTC: rule-based propogation will be deprecated? Focus on strategey-based ones?
     # rule-based op sharding propagation will be deprecated. We only handle
     # aten.t.default here only.
     input_spec = op_schema.args_spec[0]

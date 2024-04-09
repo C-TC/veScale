@@ -307,6 +307,7 @@ def _operator_dispatch(
         )
 
         # run local op computation with potentially modified args/kwargs
+        # CTC: Run op with local tensors.
         local_tensor_args = cast(Tuple[object, ...], local_tensor_args)
         if op_call in _random_ops and is_rng_supported_mesh(mesh):
             if not random._rng_tracker:
@@ -354,6 +355,7 @@ def _operator_dispatch(
                 spec.tensor_meta = TensorMeta(output.shape, output.stride(), output.dtype)
 
     # wrap to return
+    # CTC: only redistribute the input, not for output.
     if _is_inplace_op(op_call):
         # inplace op's return should rely the actual op_call's results
         if local_results is None:  # None for None

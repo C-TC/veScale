@@ -127,6 +127,7 @@ class DTensor(torch.Tensor):
 
     __torch_function__ = torch._C._disabled_torch_function_impl
 
+    # CTC: __torch_dispatch__ is the entry point for all the operator calls. https://dev-discuss.pytorch.org/t/what-and-why-is-torch-dispatch/557
     @classmethod
     def __torch_dispatch__(cls, func, types, args=(), kwargs=None):
         return op_dispatch.operator_dispatch(

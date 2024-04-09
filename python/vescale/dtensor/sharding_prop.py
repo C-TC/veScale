@@ -180,6 +180,7 @@ class ShardingPropagator:
             else:
                 return spec
 
+        # CTC: output sharding strategy from registered strategy generator for this op.
         if op_schema.op in self.op_strategy_funcs:  # strategy-based sharding propagation
             # generate op strategy for the op.
             mesh = None
@@ -204,6 +205,7 @@ class ShardingPropagator:
                 kwargs_schema=kwargs_op_strategy,
             )
 
+            # CTC: op_strategy_funcs takes input placements and produce output placement?
             op_strategy = self.op_strategy_funcs[op_schema.op](mesh, strategy_schema)
 
             if isinstance(op_strategy, OpStrategy):
@@ -218,6 +220,7 @@ class ShardingPropagator:
                         if output_strategy.input_specs is None
                         else output_strategy.input_specs[idx]
                     )
+                    # CTC: input needs redistribution if placement not desired.
                     expected_input_specs.append(desired_spec)
                     if input_spec.placements != desired_spec.placements:
                         needs_redistribute = True
@@ -324,6 +327,7 @@ class ShardingPropagator:
 
             return output_sharding
 
+        # CTC: output sharding propogation rule from registered rules for this op.
         elif op_schema.op in self.op_to_rules:  # rule-based sharding propagation
             # propagate the sharding with rule
             sharding_prop_func = self.op_to_rules[op_schema.op]
@@ -355,6 +359,7 @@ class ShardingPropagator:
                         # to get an eligible input, which we will pick a
                         # schema suggestion base on the redistribute cost.
                         # For now we simply pick the first suggestion.
+                        # CTC: so schema_suggestions is placement suggestion for inputs? in this case, redistribution is a must.
                         suggested_input_schema = output_sharding.schema_suggestions[0]
                         # run sharding propagation again with suggested schema
                         propagation_res = sharding_prop_func(suggested_input_schema)
